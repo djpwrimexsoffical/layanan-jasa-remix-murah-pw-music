@@ -309,6 +309,14 @@
     <div class="cart" onclick="toggleCart()">🛒 (<span id="cartCount">0</span>)</div>
   </header>
 
+  <button
+  onclick="window.location.href='member.html'"
+  style="background-color: #ffcc00; padding: 0.8rem 1.5rem; color: #111; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; max-width: 300px; display: block; margin: 1rem auto;"
+>
+  🔐 Masuk Member Area
+</button>
+
+
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Cari style remix...">
     <button onclick="searchProduct()">🔍</button>
@@ -322,7 +330,153 @@
 <a href="checkout.html">
   <button class="checkout-button">Checkout Sekarang</button>
 </a>
+
+
+
+
   <section class="products" id="productContainer"></section>
+<style>
+  .promo-banner {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #222, #444);
+    color: #ffcc00;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    border-top: 2px solid #ffcc00;
+    border-bottom: 2px solid #ffcc00;
+  }
+  .promo-texts {
+    display: flex;
+    animation: slideText 40s linear infinite;
+    white-space: nowrap;
+    gap: 4rem;
+  }
+  .promo-texts span {
+    flex-shrink: 0;
+  }
+  @keyframes slideText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+
+<!-- Banner Promosi -->
+<div class="promo-banner">
+  <div class="promo-texts">
+    <span>🔥 Promo Remix Cinematic, Bootleg, HipHop, Breakbeat hanya Rp80.000!</span>
+    <span>💸 Dapatkan keuntungan 20% tiap produk lewat program affiliate PW Music!</span>
+    <span>🎧 Jasa remix eksklusif & profesional – cocok untuk konten kreator!</span>
+    <span>📈 Bantu lagumu trending di TikTok & Reels dengan style remix viral!</span>
+  </div>
+</div>
+
+<script>
+  // Script sebelumnya tetap di sini tanpa diubah
+</script>
+
+<style>
+  .follow-section {
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    color: #ffcc00;
+    padding: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+    border: 2px solid #ffcc00;
+    border-radius: 16px;
+    box-shadow: 0 0 12px rgba(255, 204, 0, 0.2);
+  }
+  .follow-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .follow-section p {
+    font-size: 1rem;
+    color: #eee;
+  }
+  .follow-button, .like-button {
+    background-color: #ffcc00;
+    color: #111;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 1rem 0.5rem 0;
+    transition: all 0.3s ease;
+  }
+  .follow-button:hover, .like-button:hover {
+    background-color: #e6b800;
+  }
+  .stats-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    color: #fff;
+  }
+  .stat-count {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 0.2rem;
+  }
+  .followers-icon, .likes-icon {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+  }
+</style>
+
+<!-- Bagian Follow & Like -->
+<div class="follow-section">
+  <h2>Ikuti & Dukung PW Music 🔔❤️</h2>
+  <p>Dapatkan update promo & bantu kami berkembang!</p>
+  <button class="follow-button" onclick="followWebsite()">Follow</button>
+  <button class="like-button" onclick="likeWebsite()">Like</button>
+
+  <div class="stats-container">
+    <div class="stat-item">
+      <div class="followers-icon">👥</div>
+      <div class="stat-count" id="followerCount">10.000</div>
+      <div>Pengikut</div>
+    </div>
+    <div class="stat-item">
+      <div class="likes-icon">👍</div>
+      <div class="stat-count" id="likeCount">25.000</div>
+      <div>Like</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function followWebsite() {
+    const countSpan = document.getElementById('followerCount');
+    let currentCount = parseInt(countSpan.textContent.replace(/\./g, ''));
+    currentCount++;
+    countSpan.textContent = currentCount.toLocaleString('id-ID');
+    alert('Terima kasih telah mengikuti PW Music!');
+  }
+
+  function likeWebsite() {
+    const likeSpan = document.getElementById('likeCount');
+    let currentLikes = parseInt(likeSpan.textContent.replace(/\./g, ''));
+    currentLikes++;
+    likeSpan.textContent = currentLikes.toLocaleString('id-ID');
+    alert('Terima kasih telah menyukai PW Music!');
+  }
+</script>
+
 
   <div id="track" class="order-track">
     <h3>Lacak Pesanan</h3>
@@ -657,109 +811,139 @@
 
 </style>
 
-
+<!-- Tombol Join Affiliate -->
+<div style="text-align:center;margin:1.5rem auto;">
+  <button onclick="showAffiliateInfo()" style="background:#3e64ff;color:white;padding:12px 24px;border:none;border-radius:8px;font-size:16px;cursor:pointer;">Join PW Music Affiliate (Bonus 20%)</button>
+</div>
   <footer>
     <p>&copy; 2025 PW Music. Semua Hak Cipta Dilindungi.</p>
   </footer>
 
-  <script>
-    const products = [
-      "DJ Happy Team", "Horeg", "Slow Bass", "Haris Nugraha", "Funkot",
-      "Pani Fvnky V2", "Pani Fvnky V1", "Kondang", "Maman Fvndy",
-      "BreakBeat", "Reggea", "Jungle Dutch", "Plat KT", "Bajidor Sunda", "Koplo", "alanwalker", "jdm","pargoy","dangdut","feel koplo","koploisme","single funkot","funkot thailand"
-    ];
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+<script>
+  const products = [
+    "DJ Happy Team", "Horeg", "Slow Bass", "Haris Nugraha", "Funkot",
+    "Pani Fvnky V2", "Pani Fvnky V1", "Kondang", "Maman Fvndy",
+    "BreakBeat", "Reggea", "Jungle Dutch", "Plat KT", "Bajidor Sunda", "Koplo",
+    "alanwalker", "jdm", "pargoy", "dangdut", "feel koplo", "koploisme", "single funkot",
+    "funkot thailand", "djkomang", "djopus", "full beat", "hiphop", "lofi",
 
-    const notif = document.getElementById("notif");
-    const cartPopup = document.getElementById("cartPopup");
-    const cartList = document.getElementById("cartList");
-    const cartCount = document.getElementById("cartCount");
-    const cartTotal = document.getElementById("cartTotal");
+    // Style harga 80 ribu
+    { name: "Cinematic", price: 80000 },
+    { name: "Soundtrack", price: 80000 },
+    { name: "Plat KT JDM", price: 80000 },
+    { name: "Lambada", price: 80000 },
+    { name: "Hipdut / Hiphop", price: 80000 },
+    { name: "Enaff", price: 80000 },
+    { name: "Bootleg", price: 80000 },
+    { name: "Pani Fvnky", price: 80000 },
+    { name: "Jawa Pride", price: 80000 },
+    { name: "Breakbeat", price: 80000 },
+    { name: "Breakfunk", price: 80000 },
+    { name: "Santriq", price: 80000 }
+  ];
 
-    const productContainer = document.getElementById("productContainer");
-    products.forEach((name) => {
-      const div = document.createElement("div");
-      div.className = "product";
-      div.innerHTML = `
-        <h3>Style ${name}</h3>
-        <div class="rating">★★★★★</div>
-        <p>Harga: Rp90.000</p>
-        <div class="buttons">
-          <button class="choose">Pilih</button>
-          <button class="add-to-cart" onclick="addToCart('${name}')">+ Keranjang</button>
-        </div>
-      `;
-      productContainer.appendChild(div);
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const notif = document.getElementById("notif");
+  const cartPopup = document.getElementById("cartPopup");
+  const cartList = document.getElementById("cartList");
+  const cartCount = document.getElementById("cartCount");
+  const cartTotal = document.getElementById("cartTotal");
+
+  const productContainer = document.getElementById("productContainer");
+  products.forEach((item) => {
+    const name = typeof item === "string" ? item : item.name;
+    const price = typeof item === "string" ? 90000 : item.price;
+    const div = document.createElement("div");
+    div.className = "product";
+    div.innerHTML = `
+      <h3>Style ${name}</h3>
+      <div class="rating">★★★★★</div>
+      <p>Harga: Rp${price.toLocaleString("id-ID")}</p>
+      <div class="buttons">
+        <button class="choose">Pilih</button>
+        <button class="add-to-cart" onclick="addToCart('${name}', ${price})">+ Keranjang</button>
+      </div>
+    `;
+    productContainer.appendChild(div);
+  });
+
+  function updateCartUI() {
+    cartList.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      const li = document.createElement("li");
+      li.innerHTML = `${item.name} - Rp${item.price.toLocaleString("id-ID")} <span onclick="removeItem(${index})" style="cursor:pointer;color:red;">❌</span>`;
+      cartList.appendChild(li);
     });
+    cartTotal.innerText = "Rp" + total.toLocaleString("id-ID");
+    cartCount.innerText = cart.length;
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 
-    function updateCartUI() {
-      cartList.innerHTML = "";
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += 90000;
-        const li = document.createElement("li");
-        li.innerHTML = `${item} <span onclick="removeItem(${index})" style="cursor:pointer;color:red;">❌</span>`;
-        cartList.appendChild(li);
-      });
-      cartTotal.innerText = "Rp" + total.toLocaleString("id-ID");
-      cartCount.innerText = cart.length;
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-
-    function addToCart(name) {
-      cart.push(name);
-      updateCartUI();
-      notif.style.display = "block";
-      setTimeout(() => notif.style.display = "none", 1500);
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      updateCartUI();
-    }
-
-    function toggleCart() {
-      cartPopup.style.display = cartPopup.style.display === "block" ? "none" : "block";
-    }
-
-    function checkout() {
-      const list = cart.join(", ");
-      const message = encodeURIComponent(`Halo, saya ingin memesan jasa remix:\n${list}\nTotal: Rp${cart.length * 90000}`);
-      window.open(`https://wa.me/62895368416228?text=${message}`, "_blank");
-    }
-
-    function searchProduct() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const cards = document.querySelectorAll(".product");
-      cards.forEach(card => {
-        const title = card.querySelector("h3").innerText.toLowerCase();
-        card.style.display = title.includes(input) ? "block" : "none";
-      });
-    }
-
-    function filterProducts(category) {
-      const cards = document.querySelectorAll(".product");
-      cards.forEach(card => {
-        if (category === "all") card.style.display = "block";
-        else if (category === "terlaris" && card.innerText.includes("Funkot")) card.style.display = "block";
-        else if (category === "viral" && card.innerText.includes("Jungle")) card.style.display = "block";
-        else card.style.display = "none";
-      });
-    }
-
-    function trackOrder() {
-      const input = document.getElementById("orderId").value.trim();
-      const trackResult = document.getElementById("trackResult");
-      if (input === "") {
-        trackResult.innerText = "Masukkan ID pesanan terlebih dahulu.";
-      } else {
-        trackResult.innerText = `ID ${input} sedang dalam proses. Harap tunggu konfirmasi admin.`;
-      }
-    }
-
-    // Initial load
+  function addToCart(name, price = 90000) {
+    cart.push({ name, price });
     updateCartUI();
-  </script>
+    notif.style.display = "block";
+    setTimeout(() => notif.style.display = "none", 1500);
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+  }
+
+  function toggleCart() {
+    cartPopup.style.display = cartPopup.style.display === "block" ? "none" : "block";
+  }
+
+  function checkout() {
+    const list = cart.map(item => `${item.name} - Rp${item.price.toLocaleString("id-ID")}`).join("\n");
+    const total = cart.reduce((a, b) => a + b.price, 0);
+    const message = encodeURIComponent(`Halo, saya ingin memesan jasa remix:\n${list}\nTotal: Rp${total.toLocaleString("id-ID")}`);
+    window.open(`https://wa.me/62895368416228?text=${message}`, "_blank");
+  }
+
+  function searchProduct() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".product");
+    cards.forEach(card => {
+      const title = card.querySelector("h3").innerText.toLowerCase();
+      card.style.display = title.includes(input) ? "block" : "none";
+    });
+  }
+
+  function filterProducts(category) {
+    const cards = document.querySelectorAll(".product");
+    cards.forEach(card => {
+      if (category === "all") card.style.display = "block";
+      else if (category === "terlaris" && card.innerText.includes("Funkot")) card.style.display = "block";
+      else if (category === "viral" && card.innerText.includes("Jungle")) card.style.display = "block";
+      else card.style.display = "none";
+    });
+  }
+
+  function trackOrder() {
+    const input = document.getElementById("orderId").value.trim();
+    const trackResult = document.getElementById("trackResult");
+    if (input === "") {
+      trackResult.innerText = "Masukkan ID pesanan terlebih dahulu.";
+    } else {
+      trackResult.innerText = `ID ${input} sedang dalam proses. Harap tunggu konfirmasi admin.`;
+    }
+  }
+
+  function showAffiliateInfo() {
+    alert("Bergabunglah dengan program afiliasi PW Music dan dapatkan bonus 20% dari setiap produk yang berhasil kamu jual. Hubungi admin untuk mendapatkan link referral pribadi kamu!");
+  }
+
+  updateCartUI();
+</script>
+
+
+
+
   
 </body>
 </html>
