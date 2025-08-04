@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Afiliasi PW Music</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ff99;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .komisi-box {
+      background: #1e1e1e;
+      border: 2px solid #00ff99;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 1px solid #00ff99;
+      background-color: #1e1e1e;
+      color: white;
+      font-size: 16px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1c1c1c;
+      min-width: 800px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: #00ff99;
+      color: #000;
+    }
+
+    tr:hover {
+      background-color: #2a2a2a;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .komisi-box {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      th, td {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+  <h1>Dashboard Afiliasi PW Music</h1>
+
+  <div class="komisi-box" id="totalKomisiBox">
+    Total Komisi Anda: <strong id="totalKomisi">Rp0</strong>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Cari berdasarkan ID atau Nama...">
+  </div>
+
+  <div class="table-container">
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Produk</th>
+          <th>Harga</th>
+          <th>Status</th>
+          <th>Klik</th>
+          <th>Tanggal</th>
+          <th>Pengeluaran</th>
+          <th>Komisi 20%</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    let allData = [];
+
+    function renderTable(data) {
+      const tbody = document.querySelector("#dataTable tbody");
+      tbody.innerHTML = "";
+      let totalKomisi = 0;
+
+      data.forEach(row => {
+        const harga = parseInt(row[3]) || 0;
+        const komisi = Math.floor(harga * 0.2);
+        totalKomisi += komisi;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row[0]}</td>
+          <td>${row[1]}</td>
+          <td>${row[2]}</td>
+          <td>Rp${harga.toLocaleString()}</td>
+          <td>${row[4]}</td>
+          <td>${row[5]}</td>
+          <td>${row[6]}</td>
+          <td>${row[7]}</td>
+          <td>Rp${komisi.toLocaleString()}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("totalKomisi").textContent = "Rp" + totalKomisi.toLocaleString();
+    }
+
+    function filterTable(keyword) {
+      const filtered = allData.filter(row =>
+        row[0].toLowerCase().includes(keyword) || row[1].toLowerCase().includes(keyword)
+      );
+      renderTable(filtered);
+    }
+
+    fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS91TbPyWtCkdmDYs8zaItUKcXHKaWpzYtt8J5xa50vbqPj5RajgN0XsbCP6cmMIMok8GObEXdg0kYL/pub?output=csv")
+      .then(response => response.text())
+      .then(csv => {
+        const rows = csv.trim().split("\n").slice(1).map(row => row.split(","));
+        allData = rows;
+        renderTable(allData);
+      });
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const keyword = e.target.value.toLowerCase();
+      filterTable(keyword);
+    });
+  </script>
+<!-- ✅ Testimoni Slider -->
+<section class="testimoni-section">
+  <h2 class="judul">Apa Kata Mereka?</h2>
+  <div class="testimoni-slider" id="testimoniSlider">
+    <div class="slide active">
+      <p>"Pelayanan cepat, hasil remix memuaskan!"</p>
+      <h4>– Surya, parogy</h4>
+    </div>
+    <div class="slide">
+      <p>"Sangat cocok untuk konten TikTok saya, mantap!"</p>
+      <h4>– Yuda, maman fndy</h4>
+    </div>
+    <div class="slide">
+      <p>"Hasil audio bersih dan powerful!"</p>
+      <h4>– Bangadi, jungle dutch</h4>
+    </div>
+    <div class="slide">
+      <p>"Terima kasih, bantu naikkan view video saya!"</p>
+      <h4>– Muhamad Amin, jungle dutch</h4>
+    </div>
+    <div class="slide">
+      <p>"Remixnya soft banget, cocok buat vlog."</p>
+      <h4>– Intan, soundtrack</h4>
+    </div>
+    <div class="slide">
+      <p>"Nuansa cinematic-nya dapet banget!"</p>
+      <h4>– Rizky, cinematic</h4>
+    </div>
+    <div class="slide">
+      <p>"Bass-nya nendang! Enak dipake di mobil."</p>
+      <h4>– Aldo, plat kt jdm</h4>
+    </div>
+    <div class="slide">
+      <p>"Remixnya bikin joget sendiri!"</p>
+      <h4>– Vina, hipdut/hiphop</h4>
+    </div>
+    <div class="slide">
+      <p>"Kualitas profesional dan cepat pengerjaannya."</p>
+      <h4>– Rendy, breakbeat</h4>
+    </div>
+    <div class="slide">
+      <p>"Bener-bener sesuai dengan brief saya."</p>
+      <h4>– Devi, bootleg</h4>
+    </div>
+    <div class="slide">
+      <p>"Beat-nya pas buat konten Islami saya."</p>
+      <h4>– Fajar, santriq</h4>
+    </div>
+    <div class="slide">
+      <p>"Suka banget dengan style remix-nya!"</p>
+      <h4>– Lia, lambada</h4>
+    </div>
+    <div class="slide">
+      <p>"Selalu repeat order karena puas!"</p>
+      <h4>– Bayu, enaff</h4>
+    </div>
+    <div class="slide">
+      <p>"Unik dan catchy, cocok buat iklan pendek."</p>
+      <h4>– Ayu, pani fvnky</h4>
+    </div>
+    <div class="slide">
+      <p>"Gabungan musik tradisional & modernnya keren!"</p>
+      <h4>– Fikri, jawa pride</h4>
+    </div>
+  </div>
+</section>
+
+<style>
+.testimoni-section {
+  padding: 2rem;
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+.testimoni-section .judul {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #00ffd0;
+}
+.testimoni-slider {
+  max-width: 600px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+.slide {
+  display: none;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #222;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.5s ease;
+}
+.slide.active {
+  display: block;
+}
+.slide p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+.slide h4 {
+  margin-top: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #ccc;
+}
+</style>
+
+<script>
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+}
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slides.length;
+  showSlide(currentIndex);
+}
+setInterval(nextSlide, 4000); // Slide tiap 4 detik
+</script>
+<h1>📊 Dashboard Analitik PW Music</h1>
+
+<div class="chart-container">
+  <h3 style="text-align:center">Penjualan per Produk</h3>
+  <canvas id="chartProduk"></canvas>
+</div>
+
+<div class="chart-container">
+  <h3 style="text-align:center">Total Komisi per User</h3>
+  <canvas id="chartKomisi"></canvas>
+</div>
+
+<script>
+  async function fetchCSV(url) {
+    const res = await fetch(url);
+    const text = await res.text();
+    return text;
+  }
+
+  function parseCSV(csv) {
+    const rows = csv.trim().split('\n').slice(1);
+    return rows.map(row => {
+      const cols = row.split(',');
+      return {
+        id: cols[0],
+        user: cols[1],
+        produk: cols[2],
+        harga: parseInt(cols[3].replace(/[^0-9]/g, '')) || 0,
+        status: cols[4],
+        klik: cols[5],
+        tanggal: cols[6],
+        pengeluaran: cols[7],
+      };
+    });
+  }
+
+  function groupBy(arr, key) {
+    return arr.reduce((acc, item) => {
+      const k = item[key];
+      if (!acc[k]) acc[k] = [];
+      acc[k].push(item);
+      return acc;
+    }, {});
+  }
+
+  function createChart(ctx, labels, data, label, color) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label,
+          data,
+          backgroundColor: color,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#fff'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#fff'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  async function initDashboard() {
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS91TbPyWtCkdmDYs8zaItUKcXHKaWpzYtt8J5xa50vbqPj5RajgN0XsbCP6cmMIMok8GObEXdg0kYL/pub?output=csv";
+    const csvData = await fetchCSV(csvUrl);
+    const data = parseCSV(csvData).filter(d => d.status.toLowerCase() === "sukses");
+
+    // Grafik Penjualan Produk
+    const produkGroup = groupBy(data, 'produk');
+    const produkLabels = Object.keys(produkGroup);
+    const produkCounts = produkLabels.map(p => produkGroup[p].length);
+    createChart(document.getElementById('chartProduk'), produkLabels, produkCounts, "Jumlah Terjual", '#ffc107');
+
+    // Grafik Komisi User
+    const userGroup = groupBy(data, 'user');
+    const userLabels = Object.keys(userGroup);
+    const komisiPerUser = userLabels.map(u => {
+      const totalHarga = userGroup[u].reduce((sum, d) => sum + d.harga, 0);
+      return Math.round(totalHarga * 0.2);
+    });
+    createChart(document.getElementById('chartKomisi'), userLabels, komisiPerUser, "Total Komisi (Rp)", '#4caf50');
+  }
+
+  initDashboard();
+</script>
+<style>
+      h1 {
+      text-align: center;
+      color: #ffc107;
+    }
+    .chart-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #1f1f1f;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+    }
+    canvas {
+      background: #222;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+</style>
+</body>
+</html>
